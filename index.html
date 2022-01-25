@@ -27,6 +27,12 @@
             text-align: center;
             padding-top: 20px;
         }
+
+        .nav-links:hover{
+            color: #0a53be;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
@@ -44,19 +50,19 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item mx-1">
 <!--                        <a href="index.html">Home</a>-->
-                        <label id="homePage">Home</label>
+                        <label id="homePage" class="nav-links">Home</label>
                     </li>
                     <li class="nav-item mx-1">
 <!--                        <a href="placeOrderIndex.html">Orders</a>-->
-                        <label id="orderPage">Orders</label>
+                        <label id="orderPage" class="nav-links">Orders</label>
                     </li>
                     <li class="nav-item mx-1">
 <!--                        <a href="storeManageIndex.html">Items</a>-->
-                        <label id="itemPage">Items</label>
+                        <label id="itemPage" class="nav-links">Items</label>
                     </li>
                     <li class="nav-item mx-1">
 <!--                        <a href="customerManageIndex.html">Customers</a>-->
-                        <label id="customerPage">Customers</label>
+                        <label id="customerPage" class="nav-links">Customers</label>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -375,8 +381,33 @@
 
 
 <script>
-    document.getElementById("homePage").addEventListener("click",function (){
+    document.getElementById("orderSection").style.display="none";
+    document.getElementById("itemSection").style.display="none";
+    document.getElementById("customerSection").style.display="none";
 
+    document.getElementById("homePage").addEventListener("click",function (){
+        document.getElementById("orderSection").style.display="none";
+        document.getElementById("itemSection").style.display="none";
+        document.getElementById("customerSection").style.display="none";
+        document.getElementById("homeSection").style.display="block";
+    });
+    document.getElementById("orderPage").addEventListener("click",function (){
+        document.getElementById("homeSection").style.display="none";
+        document.getElementById("itemSection").style.display="none";
+        document.getElementById("customerSection").style.display="none";
+        document.getElementById("orderSection").style.display="block";
+    });
+    document.getElementById("itemPage").addEventListener("click",function (){
+        document.getElementById("orderSection").style.display="none";
+        document.getElementById("homeSection").style.display="none";
+        document.getElementById("customerSection").style.display="none";
+        document.getElementById("itemSection").style.display="block";
+    });
+    document.getElementById("customerPage").addEventListener("click",function (){
+        document.getElementById("homeSection").style.display="none";
+        document.getElementById("itemSection").style.display="none";
+        document.getElementById("orderSection").style.display="none";
+        document.getElementById("customerSection").style.display="block";
     });
 </script>
 
