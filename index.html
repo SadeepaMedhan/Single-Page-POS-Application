@@ -289,8 +289,48 @@
             </form>
         </div>
         <div class="col-6 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 my-2">
-            <button class="btn btn-warning">New Item</button>
             <button class="btn btn-secondary">View All</button>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewItem"
+                    data-bs-whatever="@getbootstrap">New Item
+            </button>
+
+            <div class="modal fade" id="addNewItem" tabindex="-1" aria-labelledby="newItemModelLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newItemModelLabel">Item Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="itemCode" class="col-form-label">Item Code:</label>
+                                    <input type="text" class="form-control" id="itemCode">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="itemName" class="col-form-label">Item Name:</label>
+                                    <input type="text" class="form-control" id="itemName">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="itemQty" class="col-form-label">Item Qty:</label>
+                                    <input type="text" class="form-control" id="itemQty">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="itemPrice" class="col-form-label">Item Price:</label>
+                                    <input type="text" class="form-control" id="itemPrice">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveItem">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -304,25 +344,14 @@
         <table class="table table-striped table-info">
             <thead>
             <tr>
+                <th scope="col">Item Code</th>
                 <th scope="col">Item Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Qty</th>
-                <th scope="col">Price</th>
+                <th scope="col">Item Qty</th>
+                <th scope="col">Item Price</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <th scope="row">Salt</th>
-                <td>50</td>
-                <td>50</td>
-                <td>25000</td>
-            </tr>
-            <tr>
-                <th scope="row">Salt</th>
-                <td>50</td>
-                <td>50</td>
-                <td>25000</td>
-            </tr>
+            <tbody id="itemTable">
+
 
             </tbody>
         </table>
@@ -353,9 +382,12 @@
         </div>
         <div class="col-6 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 my-2">
             <button class="btn btn-secondary">View All</button>
-             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">New Customer</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    data-bs-whatever="@getbootstrap">New Customer
+            </button>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -384,11 +416,12 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-primary" id="saveCustomer">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -417,54 +450,63 @@
 </section>
 
 
+<script src="assets/jQuery/jquery-3.6.0.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script>
-    document.getElementById("orderSection").style.display = "none";
-    document.getElementById("itemSection").style.display = "none";
-    document.getElementById("customerSection").style.display = "none";
-    document.getElementById("homePage").style.fontWeight = "bold";
 
-    document.getElementById("homePage").addEventListener("click", function () {
-        document.getElementById("orderSection").style.display = "none";
-        document.getElementById("itemSection").style.display = "none";
-        document.getElementById("customerSection").style.display = "none";
-        document.getElementById("homeSection").style.display = "block";
-        document.getElementById("homePage").style.fontWeight = "bold";
-        document.getElementById("orderPage").style.fontWeight = "normal";
-        document.getElementById("itemPage").style.fontWeight = "normal";
-        document.getElementById("customerPage").style.fontWeight = "normal";
+
+    $("#orderSection").css("display", "none");
+    $("#itemSection").css("display", "none");
+    $("#customerSection").css("display", "none");
+    $("#homePage").css("fontWeight", "bold");
+
+    $("#homePage").click(function () {
+        $("#homeSection").css("display", "block");
+        $("#orderSection").css("display", "none");
+        $("#itemSection").css("display", "none");
+        $("#customerSection").css("display", "none");
+        $("#homePage").css("fontWeight", "bold");
+        $("#orderPage").css("fontWeight", "normal");
+        $("#itemPage").css("fontWeight", "normal");
+        $("#customerPage").css("fontWeight", "normal");
+
     });
-    document.getElementById("orderPage").addEventListener("click", function () {
-        document.getElementById("homeSection").style.display = "none";
-        document.getElementById("itemSection").style.display = "none";
-        document.getElementById("customerSection").style.display = "none";
-        document.getElementById("orderSection").style.display = "block";
-        document.getElementById("orderPage").style.fontWeight = "bold";
-        document.getElementById("homePage").style.fontWeight = "normal";
-        document.getElementById("itemPage").style.fontWeight = "normal";
-        document.getElementById("customerPage").style.fontWeight = "normal";
+
+    $("#orderPage").click(function () {
+        $("#homeSection").css("display", "none");
+        $("#orderSection").css("display", "block");
+        $("#itemSection").css("display", "none");
+        $("#customerSection").css("display", "none");
+        $("#orderPage").css("fontWeight", "bold");
+        $("#homePage").css("fontWeight", "normal");
+        $("#itemPage").css("fontWeight", "normal");
+        $("#customerPage").css("fontWeight", "normal");
     });
-    document.getElementById("itemPage").addEventListener("click", function () {
-        document.getElementById("orderSection").style.display = "none";
-        document.getElementById("homeSection").style.display = "none";
-        document.getElementById("customerSection").style.display = "none";
-        document.getElementById("itemSection").style.display = "block";
-        document.getElementById("itemPage").style.fontWeight = "bold";
-        document.getElementById("orderPage").style.fontWeight = "normal";
-        document.getElementById("homePage").style.fontWeight = "normal";
-        document.getElementById("customerPage").style.fontWeight = "normal";
+
+    $("#itemPage").click(function () {
+        $("#homeSection").css("display", "none");
+        $("#orderSection").css("display", "none");
+        $("#itemSection").css("display", "block");
+        $("#customerSection").css("display", "none");
+        $("#itemPage").css("fontWeight", "bold");
+        $("#orderPage").css("fontWeight", "normal");
+        $("#homePage").css("fontWeight", "normal");
+        $("#customerPage").css("fontWeight", "normal");
     });
-    document.getElementById("customerPage").addEventListener("click", function () {
-        document.getElementById("homeSection").style.display = "none";
-        document.getElementById("itemSection").style.display = "none";
-        document.getElementById("orderSection").style.display = "none";
-        document.getElementById("customerSection").style.display = "block";
-        document.getElementById("customerPage").style.fontWeight = "bold";
-        document.getElementById("orderPage").style.fontWeight = "normal";
-        document.getElementById("itemPage").style.fontWeight = "normal";
-        document.getElementById("homePage").style.fontWeight = "normal";
+
+    $("#customerPage").click(function () {
+        $("#homeSection").css("display", "none");
+        $("#orderSection").css("display", "none");
+        $("#itemSection").css("display", "none");
+        $("#customerSection").css("display", "block");
+        $("#customerPage").css("fontWeight", "bold");
+        $("#orderPage").css("fontWeight", "normal");
+        $("#itemPage").css("fontWeight", "normal");
+        $("#homePage").css("fontWeight", "normal");
     });
+
+
 </script>
 
-<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
