@@ -405,18 +405,18 @@
                                     <input type="text" class="form-control" id="cusName">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Customer Address:</label>
-                                    <textarea class="form-control" id="message-text"></textarea>
+                                    <label for="cusAddress" class="col-form-label">Customer Address:</label>
+                                    <textarea class="form-control" id="cusAddress"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cusSalary" class="col-form-label">Customer Salary:</label>
-                                    <input type="text" class="form-control" id="cusSalary">
+                                    <label for="cusTP" class="col-form-label">Customer Telephone:</label>
+                                    <input type="text" class="form-control" id="cusTP">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveCustomer">Submit</button>
+                            <button type="button" class="btn btn-primary" id="btnSaveCustomer">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -438,7 +438,7 @@
                 <th scope="col">Customer ID</th>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Customer Address</th>
-                <th scope="col">Customer Salary</th>
+                <th scope="col">Customer Phone</th>
             </tr>
             </thead>
             <tbody id="customerTable">
@@ -453,6 +453,19 @@
 <script src="assets/jQuery/jquery-3.6.0.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script>
+
+    $("#btnSaveCustomer").click(function (){
+        let customerID = $("#cusID").val();
+        let customerName = $("#cusName").val();
+        let customerAddress = $("#cusAddress").val();
+        let customerTP = $("#cusTP").val();
+
+        let newRow = `<tr><td>${customerID}</td><td>${customerName}</td><td>${customerAddress}</td><td>${customerTP}</td></tr>`;
+
+        $("#customerTable").append(newRow);
+    });
+
+
 
 
     $("#orderSection").css("display", "none");
