@@ -291,7 +291,7 @@
         <div class="col-6 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 my-2">
             <button class="btn btn-secondary">View All</button>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewItem"
+            <button id="openAddNewItem" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewItem"
                     data-bs-whatever="@getbootstrap">New Item
             </button>
 
@@ -325,7 +325,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveItem">Submit</button>
+                            <button type="button" class="btn btn-primary" id="btnSaveItem">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -382,7 +382,7 @@
         </div>
         <div class="col-6 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 my-2">
             <button class="btn btn-secondary">View All</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            <button id="openAddNewCustomer" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     data-bs-whatever="@getbootstrap">New Customer
             </button>
 
@@ -454,6 +454,7 @@
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script>
 
+    //save customer
     $("#btnSaveCustomer").click(function (){
         let customerID = $("#cusID").val();
         let customerName = $("#cusName").val();
@@ -463,7 +464,55 @@
         let newRow = `<tr><td>${customerID}</td><td>${customerName}</td><td>${customerAddress}</td><td>${customerTP}</td></tr>`;
 
         $("#customerTable").append(newRow);
+
+        //get customer
+        $("#customerTable>tr").click(function (){
+            let cusID = $(this).children(":eq(0)").text();
+            let cusName = $(this).children(":eq(1)").text();
+            let cusAddress = $(this).children(":eq(2)").text();
+            let cusTP = $(this).children(":eq(3)").text();
+
+            $("#openAddNewCustomer").click();
+
+            $("#cusID").val(cusID);
+            $("#cusName").val(cusName);
+            $("#cusAddress").val(cusAddress);
+            $("#cusTP").val(cusTP);
+        });
+
     });
+
+
+
+    //save item
+    $("#btnSaveItem").click(function (){
+        let iCode = $("#itemCode").val();
+        let item = $("#itemName").val();
+        let qty = $("#itemQty").val();
+        let price = $("#itemPrice").val();
+
+        let itemRow = `<tr><td>${iCode}</td><td>${item}</td><td>${qty}</td><td>${price}</td></tr>`;
+
+        $("#itemTable").append(itemRow);
+
+
+        //get item
+        $("#itemTable>tr").click(function (){
+            let itemCode = $(this).children(":eq(0)").text();
+            let itemName = $(this).children(":eq(1)").text();
+            let itemQty = $(this).children(":eq(2)").text();
+            let itemPrice = $(this).children(":eq(3)").text();
+
+            $("#openAddNewItem").click();
+
+            $("#itemCode").val(itemCode);
+            $("#itemName").val(itemName);
+            $("#itemQty").val(itemQty);
+            $("#itemPrice").val(itemPrice);
+        });
+    });
+
+
 
 
 
