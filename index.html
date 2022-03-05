@@ -291,7 +291,8 @@
         <div class="col-6 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 my-2">
             <button class="btn btn-secondary">View All</button>
 
-            <button id="openAddNewItem" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewItem"
+            <button id="openAddNewItem" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#addNewItem"
                     data-bs-whatever="@getbootstrap">New Item
             </button>
 
@@ -382,7 +383,8 @@
         </div>
         <div class="col-6 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 my-2">
             <button class="btn btn-secondary">View All</button>
-            <button id="openAddNewCustomer" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            <button id="openAddNewCustomer" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
                     data-bs-whatever="@getbootstrap">New Customer
             </button>
 
@@ -455,7 +457,7 @@
 <script>
 
     //save customer
-    $("#btnSaveCustomer").click(function (){
+    $("#btnSaveCustomer").click(function () {
         let customerID = $("#cusID").val();
         let customerName = $("#cusName").val();
         let customerAddress = $("#cusAddress").val();
@@ -466,7 +468,7 @@
         $("#customerTable").append(newRow);
 
         //get customer
-        $("#customerTable>tr").click(function (){
+        $("#customerTable>tr").click(function () {
             let cusID = $(this).children(":eq(0)").text();
             let cusName = $(this).children(":eq(1)").text();
             let cusAddress = $(this).children(":eq(2)").text();
@@ -482,10 +484,32 @@
 
     });
 
+    $("#cusID").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#cusName").focus();
+        }
+    });
+    $("#cusName").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#cusAddress").focus();
+        }
+    });
+    $("#cusAddress").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#cusTP").focus();
+        }
+    });
+    $("#cusTP").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#btnSaveCustomer").focus();
+        }
+    });
+
+
 
 
     //save item
-    $("#btnSaveItem").click(function (){
+    $("#btnSaveItem").click(function () {
         let iCode = $("#itemCode").val();
         let item = $("#itemName").val();
         let qty = $("#itemQty").val();
@@ -497,7 +521,7 @@
 
 
         //get item
-        $("#itemTable>tr").click(function (){
+        $("#itemTable>tr").click(function () {
             let itemCode = $(this).children(":eq(0)").text();
             let itemName = $(this).children(":eq(1)").text();
             let itemQty = $(this).children(":eq(2)").text();
@@ -513,8 +537,26 @@
     });
 
 
-
-
+    $("#itemCode").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#itemName").focus();
+        }
+    });
+    $("#itemName").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#itemQty").focus();
+        }
+    });
+    $("#itemQty").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#itemPrice").focus();
+        }
+    });
+    $("#itemPrice").keydown(function (event) {
+        if (event.key == 'Enter') {
+            $("#btnSaveItem").focus();
+        }
+    });
 
 
     $("#orderSection").css("display", "none");
