@@ -1,1 +1,1 @@
-# Single Page Point of Sale System
+# Point of Sale System

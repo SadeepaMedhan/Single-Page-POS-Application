@@ -363,8 +363,8 @@
                 <fieldset>
                     <legend class="bg-success p-2 text-white bg-opacity-75">Customer Search</legend>
                     <div class="mb-3">
-                        <label for="disabledTextInput"></label><input type="text" id="disabledTextInput"
-                                                                      class="form-control" placeholder="Search here..">
+                        <label for="txtSearchCusID"></label>
+                        <input type="text" id="txtSearchCusID" class="form-control" placeholder="Search here..">
                     </div>
                     <div class="mb-3">
                         <select id="disabledSelect" class="form-select">
@@ -374,17 +374,17 @@
                         </select>
                     </div>
                     <button class="btn btn-secondary">Clear</button>
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button id="btnSearchCus" type="button" class="btn btn-primary">Search</button>
                 </fieldset>
             </form>
         </div>
         <div class="col-6 col-12 col-sm-12 col-md-8 col-lg-4 col-xl-3 my-2">
             <button id="openAddNewCustomer" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    data-bs-target="#cusDetailPopup"
                     data-bs-whatever="@getbootstrap">New Customer
             </button>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="cusDetailPopup" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -397,18 +397,22 @@
                                 <div class="mb-3">
                                     <label for="txtCusID" class="col-form-label">Customer ID:</label>
                                     <input type="text" class="form-control" id="txtCusID">
+                                    <p><small class="text-danger pl-1" id="lblcusid"></small></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cusName" class="col-form-label">Customer Name:</label>
-                                    <input type="text" class="form-control" id="cusName">
+                                    <label for="txtCusName" class="col-form-label">Customer Name:</label>
+                                    <input type="text" class="form-control" id="txtCusName">
+                                    <p><small class="text-danger pl-1" id="lblcusname"></small></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cusAddress" class="col-form-label">Customer Address:</label>
-                                    <textarea class="form-control" id="cusAddress"></textarea>
+                                    <label for="txtCusAddress" class="col-form-label">Customer Address:</label>
+                                    <textarea class="form-control" id="txtCusAddress"></textarea>
+                                    <p><small class="text-danger pl-1" id="lblcusaddress"></small></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cusTP" class="col-form-label">Customer Telephone:</label>
-                                    <input type="text" class="form-control" id="cusTP">
+                                    <label for="txtCusTP" class="col-form-label">Customer Telephone:</label>
+                                    <input type="text" class="form-control" id="txtCusTP">
+                                    <p><small class="text-danger pl-1" id="lblcustp"></small></p>
                                 </div>
                             </form>
                         </div>
@@ -446,81 +450,276 @@
 
 <script src="assets/jQuery/jquery-3.6.0.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="db/DB.js"></script>
 <script>
 
-    let selectedCus;
-    //save customer
     $("#btnSaveCustomer").click(function () {
+        saveCustomer();
+        clearAll();
+        loadAllCustomers();
+    });
+
+    function loadAllCustomers() {
+        $("#customerTable").empty();
+        for (var i of customerDB) {
+            let row = `<tr><td>${i.id}</td><td>${i.name}</td><td>${i.address}</td><td>${i.tp}</td></tr>`;
+            $("#customerTable").append(row);
+        }
+    }
+    //let selectedCus;
+    //save customer
+    function saveCustomer() {
         let customerID = $("#txtCusID").val();
-        let customerName = $("#cusName").val();
-        let customerAddress = $("#cusAddress").val();
-        let customerTP = $("#cusTP").val();
+        let customerName = $("#txtCusName").val();
+        let customerAddress = $("#txtCusAddress").val();
+        let customerTP = $("#txtCusTP").val();
 
-        let newRow = `<tr><td>${customerID}</td><td>${customerName}</td><td>${customerAddress}</td><td>${customerTP}</td></tr>`;
+        //create Object
+        var customerObject = {
+            id:customerID,
+            name:customerName,
+            address:customerAddress,
+            tp:customerTP
+        }
 
-        $("#customerTable").append(newRow);
+        customerDB.push(customerObject);
 
-        //get customer
-        $("#customerTable>tr").click(function () {
-            let cusID = $(this).children(":eq(0)").text();
-            let cusName = $(this).children(":eq(1)").text();
-            let cusAddress = $(this).children(":eq(2)").text();
-            let cusTP = $(this).children(":eq(3)").text();
+        // let newRow = `<tr><td>${customerID}</td><td>${customerName}</td><td>${customerAddress}</td><td>${customerTP}</td></tr>`;
+        //
+        // $("#customerTable").append(newRow);
+        //
+        // //get customer
+        // $("#customerTable>tr").click(function () {
+        //     let cusID = $(this).children(":eq(0)").text();
+        //     let cusName = $(this).children(":eq(1)").text();
+        //     let cusAddress = $(this).children(":eq(2)").text();
+        //     let cusTP = $(this).children(":eq(3)").text();
+        //
+        //     selectedCus=this;
+        //     $("#openAddNewCustomer").click();
+        //
+        //     $("#txtCusID").val(cusID);
+        //     $("#txtCusName").val(cusName);
+        //     $("#txtCusAddress").val(cusAddress);
+        //     $("#txtCusTP").val(cusTP);
+        // });
+    }
 
-            selectedCus=this;
-            $("#openAddNewCustomer").click();
+    function searchCustomer(id) {
+        for (let i = 0; i < customerDB.length; i++) {
+            if (customerDB[i].id == id) {
+                return customerDB[i];
+            }
+        }
+    }
 
-            $("#txtCusID").val(cusID);
-            $("#cusName").val(cusName);
-            $("#cusAddress").val(cusAddress);
-            $("#cusTP").val(cusTP);
-        });
+    // search customer
+    $("#btnSearchCus").click(function () {
 
+        var searchID = $("#txtSearchCusID").val();
+        var response = searchCustomer(searchID);
+
+        if (response) {
+            $("#cusDetailPopup").modal('show');
+
+            $("#txtCusID").val(response.id);
+            $("#txtCusName").val(response.name);
+            $("#txtCusAddress").val(response.address);
+            $("#txtCusTP").val(response.tp);
+        }else{
+            clearAll();
+            alert("No Such a Customer");
+        }
     });
 
     //remove selected customer
-    $("#btnCustomerDelete").click(function () {
-        $(selectedCus).remove();
-    });
+    // $("#btnCustomerDelete").click(function () {
+    //     $(selectedCus).remove();
+    // });
 
-    $("#txtCusID").keydown(function (event) {
-        if (event.key == 'Enter') {
-            $("#cusName").focus();
-        }
-    });
-    $("#cusName").keydown(function (event) {
-        if (event.key == 'Enter') {
-            $("#cusAddress").focus();
-        }
-    });
-    $("#cusAddress").keydown(function (event) {
-        if (event.key == 'Enter') {
-            $("#cusTP").focus();
-        }
-    });
-    $("#cusTP").keydown(function (event) {
-        if (event.key == 'Enter') {
-            $("#btnSaveCustomer").focus();
-        }
-    });
+    // $("#txtCusID").keydown(function (event) {
+    //     if (event.key == 'Enter') {
+    //         $("#cusName").focus();
+    //     }
+    // });
+    // $("#cusName").keydown(function (event) {
+    //     if (event.key == 'Enter') {
+    //         $("#cusAddress").focus();
+    //     }
+    // });
+    // $("#cusAddress").keydown(function (event) {
+    //     if (event.key == 'Enter') {
+    //         $("#cusTP").focus();
+    //     }
+    // });
+    // $("#cusTP").keydown(function (event) {
+    //     if (event.key == 'Enter') {
+    //         $("#btnSaveCustomer").focus();
+    //     }
+    // });
 
     //validation
-
     //customer regular expressions
     const regExCusID = /^C[0-9]{3,4}$/;
     const regExCusName = /^[A-z]{5,25}$/;
     const regExCusAddress = /^[0-9/A-z. ,]{5,}$/;
     const regExCusTP = /^(071|077|078|075|076)[-]?[0-9]{7}$/;
 
-    $("#txtCusID").keyup(function () {
-         let input = $("#txtCusID").val();
-        if (regExCusID.test(input)) {
-            $("#txtCusID").css('border','2px solid green');
-        }else{
-            $("#txtCusID").css('border','2px solid red');
-        }
-     });
+    // $("#txtCusID").keyup(function () {
+    //      let input = $("#txtCusID").val();
+    //     if (regExCusID.test(input)) {
+    //         $("#txtCusID").css('border','2px solid green');
+    //     }else{
+    //         $("#txtCusID").css('border','2px solid red');
+    //     }
+    //  });
 
+
+    $('#txtCusID,#txtCusName,#txtCusAddress,#txtCusTP').on('keydown', function (eventOb) {
+        if (eventOb.key == "Tab") {
+            eventOb.preventDefault();
+        }
+    });
+
+    $('#txtCusID,#txtCusName,#txtCusAddress,#txtCusTP').on('blur', function () {
+        formValid();
+    });
+
+    //focusing events
+    $("#txtCusID").on('keyup', function (eventOb) {
+        setButton();
+        if (eventOb.key == "Enter") {
+            checkIfValid();
+        }
+
+        if (eventOb.key == "Control") {
+            var typedCustomerID = $("#txtCusID").val();
+            var srcCustomer = searchCustomer(typedCustomerID);
+            // $("#txtCusID").val(srcCustomer.getCustomerID());
+            // $("#txtCusName").val(srcCustomer.getCustomerName());
+            // $("#txtCusAddress").val(srcCustomer.getCustomerAddress());
+            // $("#txtCusTP").val(srcCustomer.getCustomerSalary());
+        }
+
+    });
+
+    $("#txtCusName").on('keyup', function (eventOb) {
+        setButton();
+        if (eventOb.key == "Enter") {
+            checkIfValid();
+        }
+    });
+
+    $("#txtCusAddress").on('keyup', function (eventOb) {
+        setButton();
+        if (eventOb.key == "Enter") {
+            checkIfValid();
+        }
+    });
+
+    $("#txtCusTP").on('keyup', function (eventOb) {
+        setButton();
+        if (eventOb.key == "Enter") {
+            checkIfValid();
+        }
+    });
+    // focusing events end
+    $("#btnSaveCustomer").attr('disabled', true);
+
+    function clearAll() {
+        $('#txtCusID,#txtCusName,#txtCusAddress,#txtCusTP').val("");
+        $('#txtCusID,#txtCusName,#txtCusAddress,#txtCusTP').css('border', '2px solid #ced4da');
+        $('#txtCusID').focus();
+        $("#btnSaveCustomer").attr('disabled', true);
+        loadAllCustomers();
+        $("#lblcusid,#lblcusname,#lblcusaddress,#lblcustp").text("");
+    }
+
+    function formValid() {
+        var cusID = $("#txtCusID").val();
+        $("#txtCusID").css('border', '2px solid green');
+        $("#lblcusid").text("");
+        if (regExCusID.test(cusID)) {
+            var cusName = $("#txtCusName").val();
+            if (regExCusName.test(cusName)) {
+                $("#txtCusName").css('border', '2px solid green');
+                $("#lblcusname").text("");
+                var cusAddress = $("#txtCusAddress").val();
+                if (regExCusAddress.test(cusAddress)) {
+                    var cusTP = $("#txtCusTP").val();
+                    var resp = regExCusTP.test(cusTP);
+                    $("#txtCusAddress").css('border', '2px solid green');
+                    $("#lblcusaddress").text("");
+                    if (resp) {
+                        $("#txtCusTP").css('border', '2px solid green');
+                        $("#lblcustp").text("");
+                        return true;
+                    } else {
+                        $("#txtCusTP").css('border', '2px solid red');
+                        $("#lblcustp").text("Cus Telephone is a required field : Pattern 07********");
+                        return false;
+                    }
+                } else {
+                    $("#txtCusAddress").css('border', '2px solid red');
+                    $("#lblcusaddress").text("Cus Address is a required field : Mimum 5");
+                    return false;
+                }
+            } else {
+                $("#txtCusName").css('border', '2px solid red');
+                $("#lblcusname").text("Cus Name is a required field : Minimum 5, Max 25, Spaces Allowed");
+                return false;
+            }
+        } else {
+            $("#txtCusID").css('border', '2px solid red');
+            $("#lblcusid").text("Cus ID is a required field : Pattern C001");
+            return false;
+        }
+    }
+
+    function checkIfValid() {
+        var cusID = $("#txtCusID").val();
+        if (regExCusID.test(cusID)) {
+            $("#txtCusName").focus();
+            var cusName = $("#txtCusName").val();
+            if (regExCusName.test(cusName)) {
+                $("#txtCusAddress").focus();
+                var cusAddress = $("#txtCusAddress").val();
+                if (regExCusAddress.test(cusAddress)) {
+                    $("#txtCusTP").focus();
+                    var cusTp = $("#txtCusTP").val();
+                    var resp = regExCusTP.test(cusTp);
+                    if (resp) {
+                        let res = confirm("Do you really need to add this Customer..?");
+                        if (res) {
+                            saveCustomer();
+                            clearAll();
+                        }
+                    } else {
+                        $("#txtCusTP").focus();
+                    }
+                } else {
+                    $("#txtCusAddress").focus();
+                }
+            } else {
+                $("#txtCusName").focus();
+            }
+        } else {
+            $("#txtCusID").focus();
+        }
+    }
+
+    function setButton() {
+        let b = formValid();
+        if (b) {
+            $("#btnSaveCustomer").attr('disabled', false);
+        } else {
+            $("#btnSaveCustomer").attr('disabled', true);
+        }
+    }
+
+    $('#btnSaveCustomer').click(function () {
+        checkIfValid();
+    });
 
 
     //------Item-----------
