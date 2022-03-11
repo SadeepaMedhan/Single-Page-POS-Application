@@ -395,8 +395,8 @@
                         <div class="modal-body">
                             <form>
                                 <div class="mb-3">
-                                    <label for="cusID" class="col-form-label">Customer ID:</label>
-                                    <input type="text" class="form-control" id="cusID">
+                                    <label for="txtCusID" class="col-form-label">Customer ID:</label>
+                                    <input type="text" class="form-control" id="txtCusID">
                                 </div>
                                 <div class="mb-3">
                                     <label for="cusName" class="col-form-label">Customer Name:</label>
@@ -451,7 +451,7 @@
     let selectedCus;
     //save customer
     $("#btnSaveCustomer").click(function () {
-        let customerID = $("#cusID").val();
+        let customerID = $("#txtCusID").val();
         let customerName = $("#cusName").val();
         let customerAddress = $("#cusAddress").val();
         let customerTP = $("#cusTP").val();
@@ -470,7 +470,7 @@
             selectedCus=this;
             $("#openAddNewCustomer").click();
 
-            $("#cusID").val(cusID);
+            $("#txtCusID").val(cusID);
             $("#cusName").val(cusName);
             $("#cusAddress").val(cusAddress);
             $("#cusTP").val(cusTP);
@@ -483,7 +483,7 @@
         $(selectedCus).remove();
     });
 
-    $("#cusID").keydown(function (event) {
+    $("#txtCusID").keydown(function (event) {
         if (event.key == 'Enter') {
             $("#cusName").focus();
         }
@@ -504,8 +504,26 @@
         }
     });
 
+    //validation
+
+    //customer regular expressions
+    const regExCusID = /^C[0-9]{3,4}$/;
+    const regExCusName = /^[A-z]{5,25}$/;
+    const regExCusAddress = /^[0-9/A-z. ,]{5,}$/;
+    const regExCusTP = /^(071|077|078|075|076)[-]?[0-9]{7}$/;
+
+    $("#txtCusID").keyup(function () {
+         let input = $("#txtCusID").val();
+        if (regExCusID.test(input)) {
+            $("#txtCusID").css('border','2px solid green');
+        }else{
+            $("#txtCusID").css('border','2px solid red');
+        }
+     });
 
 
+
+    //------Item-----------
 
     let selectedItem;
     //save item
