@@ -45,6 +45,10 @@ function clearOrderItem(){
 }
 
 function calculate(){
-    var total = 0.00;
-   $("#lblTotalPrice").val("Total : "+total+" Rs/=");
+    var total = 0;
+    for (var i of cartDB) {
+        total += i.getTotPrice();
+    }
+   $("#lblTotalPrice").text("Total : "+total+".00 Rs/=");
+   $("#lblSubTotal").text("SubTotal : "+total+".00 Rs/=");
 }
