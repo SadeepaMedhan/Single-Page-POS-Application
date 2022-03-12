@@ -18,7 +18,7 @@ $("#btnAddToCart").click(function () {
     if (regExItemQty.test(orderQty)) {
 
         var itemTotal = itemPrice*orderQty;
-        let newItemToCart = new Cart(itemCode,orderQty);
+        let newItemToCart = new Cart(itemCode,orderQty,itemTotal);
         addCart(newItemToCart);
         loadCartAll();
 
@@ -33,15 +33,18 @@ function loadCartAll() {
     $("#tableCart").empty();
     for (var i of cartDB) {
         let item = searchItem(i.getCItemCode());
-        let price = item.getItemPrice();
-        let qtyForSale = i.getQtyForSale();
-        let total = price*qtyForSale;
-        let row = `<tr><td>${i.getCItemCode()}</td><td>${item.getItemName()}</td><td>${item.getItemPrice()}</td><td>${i.getQtyForSale()}</td><td>${total}</td></tr>`;
+        let row = `<tr><td>${i.getCItemCode()}</td><td>${item.getItemName()}</td><td>${item.getItemPrice()}</td><td>${i.getQtyForSale()}</td><td>${i.getTotPrice()}</td></tr>`;
         $("#tableCart").append(row);
     }
+    calculate();
 }
 
 function clearOrderItem(){
     $('#txtOrderItemCode,#txtOrderItemName,#txtOrderItemPrice,#txtOrderQtyOnHand,#txtOrderQty').val("");
     loadAllItemID();
+}
+
+function calculate(){
+    var total = 0.00;
+   $("#lblTotalPrice").val("Total : "+total+" Rs/=");
 }
