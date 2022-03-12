@@ -13,6 +13,7 @@
             width: 275px;
             height: 190px;
             margin: auto;
+
         }
 
         .label-one > i {
@@ -151,11 +152,11 @@
                 <legend class="bg-success p-2 text-white bg-opacity-75">Customer Details</legend>
                 <div class="col-md-6">
                     <label for="inputOrderID" class="form-label">Order ID :</label>
-                    <input type="email" class="form-control" id="inputOrderID" placeholder="D001">
+                    <input type="text" class="form-control" id="inputOrderID" placeholder="D001">
                 </div>
                 <div class="col-md-6">
                     <label for="inputDate" class="form-label">Date :</label>
-                    <input type="password" class="form-control" id="inputDate" placeholder="21/01/2022">
+                    <input type="text" class="form-control" id="inputDate" placeholder="21/01/2022">
                 </div>
                 <div class="col-6">
                     <label for="inputCustomer" class="form-label">Customer :</label>
@@ -192,11 +193,11 @@
                 </div>
                 <div class="col-md-6">
                     <label for="txtOrderItemCode" class="form-label">Item Code :</label>
-                    <input type="password" class="form-control" id="txtOrderItemCode" placeholder="P001">
+                    <input type="text" class="form-control " id="txtOrderItemCode" placeholder="P001">
                 </div>
                 <div class="col-5">
                     <label for="txtOrderItemName" class="form-label">Item Name :</label>
-                    <input type="email" class="form-control" id="txtOrderItemName" placeholder="Salt 1kg">
+                    <input type="text" class="form-control" id="txtOrderItemName" placeholder="Salt 1kg">
                 </div>
                 <div class="col-4">
                     <label for="txtOrderItemPrice" class="form-label">Price :</label>
@@ -208,7 +209,7 @@
                 </div>
                 <div class="col-12">
                     <label for="txtOrderQty" class="form-label">Order Qty :</label>
-                    <input type="text" class="form-control" id="txtOrderQty" placeholder="2">
+                    <input type="text" class="form-control" id="txtOrderQty" >
                 </div>
                 <div class="col-12">
                     <button id="btnAddToCart" class="btn btn-sm btn-secondary me-2" type="button">Add Item</button>
@@ -249,14 +250,8 @@
                     <th>Total</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr class="table-hover fw-light">
-                    <th>P001</th>
-                    <th>Salt 1kg</th>
-                    <th>50</th>
-                    <th>2</th>
-                    <th>100</th>
-                </tr>
+                <tbody id="tableCart">
+
                 </tbody>
             </table>
         </div>
@@ -497,6 +492,16 @@
 </section>
 
 
+<script>
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+    $("#inputDate").val(date);
+    //$("#inputDate").val(time);
+
+</script>
+
 <script src="assets/jQuery/jquery-3.6.0.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="db/DB.js"></script>
@@ -507,7 +512,6 @@
 <script src="controller/CustomerController.js"></script>
 <script src="controller/ItemController.js"></script>
 <script src="controller/OrderController.js"></script>
-
 
 </body>
 </html>

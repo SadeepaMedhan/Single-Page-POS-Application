@@ -37,7 +37,7 @@ $("#btnSearchCus").click(function () {
         alert("No Such a Customer");
     } else {
         $("#cusDetailPopup").modal('show');
-        console.log(response.getCusId());
+        //console.log(response.getCusId());
 
         $("#txtCusID").val(response.getCusId());
         $("#txtCusName").val(response.getCusName());
@@ -180,13 +180,7 @@ function checkIfValid() {
                 var cusTp = $("#txtCusTP").val();
                 var resp = regExCusTP.test(cusTp);
                 if (resp) {
-                    //clearAll();
                     return true;
-                    // let res = confirm("Do you really need to add this Customer..?");
-                    // if (res) {
-                    //     saveCustomer();
-                    //     clearAll();
-                    // }
                 } else {
                     $("#txtCusTP").focus();
                 }

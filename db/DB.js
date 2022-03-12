@@ -2,13 +2,16 @@
 
 var customerDB = new Array();
 var itemDB = new Array();
+var orderDB = new Array();
+var cartDB = new Array();
 
 
 
 function saveCustomer(customer) {
-    console.log(customer);
     customerDB.push(customer);
+
     $("#customerTable > tr").click(function () {
+        $("#cusDetailPopup").modal('show');
         $("#txtCusID").val($(this).children(":eq(0)").text());
         $("#txtCusName").val($(this).children(":eq(1)").text());
         $("#txtCusAddress").val($(this).children(":eq(2)").text());
@@ -52,7 +55,7 @@ function deleteCustomer(id) {
 
 
 function saveItem(item) {
-    //console.log(item);
+    //console.log();
     itemDB.push(item);
     $("#itemTable > tr").click(function () {
         $("#txtItemCode").val($(this).children(":eq(0)").text());

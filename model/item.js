@@ -1,18 +1,14 @@
-function ItemDTO(id, name, description, qty, price){
+function ItemDTO(id, name, qty, price){
     var __id=id;
     var __name=name;
-    var __description=description;
-    var __qty =qty;
-    var __price = price;
+    var __qty=qty;
+    var __price=price;
 
     this.setItemID=function (id){
         __id=id;
     }
     this.setItemName=function (name){
         __name=name;
-    }
-    this.setItemDescription=function (description){
-        __description=name;
     }
     this.setItemQty=function (qty){
         __qty=qty;
@@ -25,9 +21,6 @@ function ItemDTO(id, name, description, qty, price){
     }
     this.getItemName = function(){
         return __name;
-    }
-    this.getItemDescription = function(){
-        return __description;
     }
     this.getItemQty = function (){
         return __qty;
