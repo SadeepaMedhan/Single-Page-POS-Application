@@ -11,8 +11,8 @@ function saveCustomer(customer) {
     $("#customerTable > tr").click(function () {
         $("#txtCusID").val($(this).children(":eq(0)").text());
         $("#txtCusName").val($(this).children(":eq(1)").text());
-        $("#txtCusAddress").val($(this).children(":eq(3)").text());
-        $("#txtCusTP").val($(this).children(":eq(4)").text());
+        $("#txtCusAddress").val($(this).children(":eq(2)").text());
+        $("#txtCusTP").val($(this).children(":eq(3)").text());
     });
 }
 
@@ -57,8 +57,8 @@ function saveItem(item) {
     $("#itemTable > tr").click(function () {
         $("#txtItemCode").val($(this).children(":eq(0)").text());
         $("#txtItemName").val($(this).children(":eq(1)").text());
-        $("#txtItemQty").val($(this).children(":eq(3)").text());
-        $("#txtItemPrice").val($(this).children(":eq(4)").text());
+        $("#txtItemQty").val($(this).children(":eq(2)").text());
+        $("#txtItemPrice").val($(this).children(":eq(3)").text());
     });
 }
 

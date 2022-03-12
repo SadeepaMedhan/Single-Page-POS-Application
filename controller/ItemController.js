@@ -179,10 +179,11 @@ function checkIfValidItem() {
                 var itemPrice = $("#txtItemPrice").val();
                 var resp = regExItemPrice.test(itemPrice);
                 if (resp) {
-                    let res = confirm("Do you really need to add this Item..?");
+                    return true;
+                    /*let res = confirm("Do you really need to add this Item..?");
                     if (res) {
                        return true;
-                    }
+                    }*/
                 } else {
                     $("#txtItemPrice").focus();
                 }
