@@ -1,4 +1,4 @@
-function orderDTO(orderId, customerId, date, time, total) {
+function OrderDTO(orderId, customerId, date, time, total) {
     var __orderId = orderId;
     var __customerId = customerId;
     var __date = date;

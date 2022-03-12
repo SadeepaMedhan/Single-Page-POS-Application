@@ -52,3 +52,7 @@ function calculate(){
    $("#lblTotalPrice").text("Total : "+total+".00 Rs/=");
    $("#lblSubTotal").text("SubTotal : "+total+".00 Rs/=");
 }
+
+$("#btnPurchase").click(function () {
+    OrderDTO(orderId, customerId, date, time, total);
+});
