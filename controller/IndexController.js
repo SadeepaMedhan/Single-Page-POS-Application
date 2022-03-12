@@ -27,6 +27,8 @@ $("#orderPage").click(function () {
     $("#homePage").css("fontWeight", "normal");
     $("#itemPage").css("fontWeight", "normal");
     $("#customerPage").css("fontWeight", "normal");
+    loadAllCusID();
+    loadAllItemID();
 });
 
 $("#itemPage").click(function () {

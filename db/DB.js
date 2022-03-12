@@ -95,3 +95,47 @@ function deleteItem(code) {
     }
     return false;
 }
+
+
+
+
+
+
+function loadAllCusID(){
+    $("#inputCustomer").empty();
+    $("#inputCustomer").append(`<option value="" disabled selected hidden>Select ID</option>`);
+    for (let i = 0; i < customerDB.length; i++) {
+        let id=   `<option value="${customerDB[i].getCusId()}">${customerDB[i].getCusId()}</option>`;
+        $("#inputCustomer").append(id);
+    }
+}
+function loadAllItemID(){
+    $("#inputItem").empty();
+    $("#inputItem").append(`<option value="" disabled selected hidden>Select ID</option>`);
+    for (let i = 0; i < itemDB.length; i++) {
+        let code= `<option value="${itemDB[i].getItemId()}">${itemDB[i].getItemId()}</option>`;
+        $("#inputItem").append(code);
+    }
+}
+
+
+function loadCusDetails(id){
+    for (let i = 0; i < customerDB.length; i++) {
+        if (customerDB[i].getCusId() === id) {
+            $("#txtOrderCusID").val(customerDB[i].getCusId());
+            $("#txtOrderCusName").val(customerDB[i].getCusName());
+            $("#txtOrderCusAddress").val(customerDB[i].getCusAddress());
+            $("#txtOrderCusTP").val(customerDB[i].getCusTp());
+        }
+    }
+}
+function loadItemDetails(id){
+    for (let i = 0; i < itemDB.length; i++) {
+        if (itemDB[i].getItemId() === id) {
+            $("#txtOrderItemCode").val(itemDB[i].getItemId());
+            $("#txtOrderItemName").val(itemDB[i].getItemName());
+            $("#txtOrderQtyOnHand").val(itemDB[i].getItemQty());
+            $("#txtOrderItemPrice").val(itemDB[i].getItemPrice());
+        }
+    }
+}

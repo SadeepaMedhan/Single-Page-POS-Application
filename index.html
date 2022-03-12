@@ -159,28 +159,25 @@
                 </div>
                 <div class="col-6">
                     <label for="inputCustomer" class="form-label">Customer :</label>
-                    <select id="inputCustomer" class="form-select">
-                        <option selected>C001</option>
-                        <option>C002</option>
-                        <option>C003</option>
-                        <option>C004</option>
+                    <select id="inputCustomer" class="form-select" onchange="loadCusIds()">
+
                     </select>
                 </div>
                 <div class="col-6">
-                    <label for="inputCustomerID" class="form-label">Customer ID :</label>
-                    <input type="text" class="form-control" id="inputCustomerID" placeholder="C001">
+                    <label for="txtOrderCusID" class="form-label">Customer ID :</label>
+                    <input id="txtOrderCusID" type="text" class="form-control"  placeholder="C001">
                 </div>
                 <div class="col-6">
-                    <label for="inputName" class="form-label">Name :</label>
-                    <input type="text" class="form-control" id="inputName" placeholder="Nimal">
+                    <label for="txtOrderCusName" class="form-label">Name :</label>
+                    <input id="txtOrderCusName" type="text" class="form-control"  placeholder="Nimal">
                 </div>
                 <div class="col-6">
-                    <label for="inputSalary" class="form-label">Salary :</label>
-                    <input type="text" class="form-control" id="inputSalary" placeholder="100000.00">
+                    <label for="txtOrderCusTP" class="form-label">Phone :</label>
+                    <input id="txtOrderCusTP" type="text" class="form-control" placeholder="071*******">
                 </div>
                 <div class="col-12">
-                    <label for="inputAddress" class="form-label">Address :</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Matara">
+                    <label for="txtOrderCusAddress" class="form-label">Address :</label>
+                    <input  id="txtOrderCusAddress" type="text" class="form-control" placeholder="Matara">
                 </div>
             </form>
         </div>
@@ -189,35 +186,32 @@
                 <legend class="bg-success p-2 text-white bg-opacity-75">Select Items</legend>
                 <div class="col-md-6">
                     <label for="inputItem" class="form-label">Item :</label>
-                    <select id="inputItem" class="form-select">
-                        <option selected>P001</option>
-                        <option>P002</option>
-                        <option>P003</option>
-                        <option>P004</option>
+                    <select id="inputItem" class="form-select" onchange="loadItemCodes()">
+
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="inputItemCode" class="form-label">Item Code :</label>
-                    <input type="password" class="form-control" id="inputItemCode" placeholder="P001">
+                    <label for="txtOrderItemCode" class="form-label">Item Code :</label>
+                    <input type="password" class="form-control" id="txtOrderItemCode" placeholder="P001">
                 </div>
                 <div class="col-5">
-                    <label for="inputItemName" class="form-label">Item Name :</label>
-                    <input type="email" class="form-control" id="inputItemName" placeholder="Salt 1kg">
+                    <label for="txtOrderItemName" class="form-label">Item Name :</label>
+                    <input type="email" class="form-control" id="txtOrderItemName" placeholder="Salt 1kg">
                 </div>
                 <div class="col-4">
-                    <label for="inputPrice" class="form-label">Price :</label>
-                    <input type="text" class="form-control" id="inputPrice" placeholder="50.00">
+                    <label for="txtOrderItemPrice" class="form-label">Price :</label>
+                    <input type="text" class="form-control" id="txtOrderItemPrice" placeholder="50.00">
                 </div>
                 <div class="col-3">
-                    <label for="inputQtyOnHand" class="form-label">QtyOnH :</label>
-                    <input type="text" class="form-control" id="inputQtyOnHand" placeholder="200">
+                    <label for="txtOrderQtyOnHand" class="form-label">QtyOnH :</label>
+                    <input type="text" class="form-control" id="txtOrderQtyOnHand" placeholder="200">
                 </div>
                 <div class="col-12">
-                    <label for="inputOrderQty" class="form-label">Order Qty :</label>
-                    <input type="text" class="form-control" id="inputOrderQty" placeholder="2">
+                    <label for="txtOrderQty" class="form-label">Order Qty :</label>
+                    <input type="text" class="form-control" id="txtOrderQty" placeholder="2">
                 </div>
                 <div class="col-12">
-                    <button class="btn btn-sm btn-secondary me-2" type="button">Add Item</button>
+                    <button id="btnAddToCart" class="btn btn-sm btn-secondary me-2" type="button">Add Item</button>
                 </div>
             </form>
         </div>
@@ -512,6 +506,7 @@
 <script src="controller/IndexController.js"></script>
 <script src="controller/CustomerController.js"></script>
 <script src="controller/ItemController.js"></script>
+<script src="controller/OrderController.js"></script>
 
 
 </body>
