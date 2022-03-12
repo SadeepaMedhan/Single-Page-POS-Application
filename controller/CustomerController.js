@@ -1,4 +1,3 @@
-
 $("#btnSaveCustomer").click(function () {
     saveCustomer();
     clearAll();
@@ -12,7 +11,8 @@ function loadAllCustomers() {
         $("#customerTable").append(row);
     }
 }
-
+//let selectedCus;
+//save customer
 function saveCustomer() {
     let customerID = $("#txtCusID").val();
     let customerName = $("#txtCusName").val();
@@ -26,10 +26,7 @@ function saveCustomer() {
         address:customerAddress,
         tp:customerTP
     }
-
     customerDB.push(customerObject);
-
-
 }
 
 function searchCustomer(id) {
@@ -44,9 +41,7 @@ function searchCustomer(id) {
 $("#btnSearchCus").click(function () {
 
     var searchID = $("#txtSearchCusID").val();
-
     var response = searchCustomer(searchID);
-    console.log(response);
 
     if (response) {
         $("#cusDetailPopup").modal('show');
@@ -61,13 +56,13 @@ $("#btnSearchCus").click(function () {
     }
 });
 
+
 //validation
 //customer regular expressions
 const regExCusID = /^C[0-9]{3,4}$/;
 const regExCusName = /^[A-z]{5,25}$/;
 const regExCusAddress = /^[0-9/A-z. ,]{5,}$/;
 const regExCusTP = /^(071|077|078|075|076)[-]?[0-9]{7}$/;
-
 
 $('#txtCusID,#txtCusName,#txtCusAddress,#txtCusTP').on('keydown', function (eventOb) {
     if (eventOb.key == "Tab") {
@@ -117,7 +112,6 @@ $("#txtCusTP").on('keyup', function (eventOb) {
     }
 });
 // focusing events end
-
 $("#btnSaveCustomer").attr('disabled', true);
 
 function clearAll() {
