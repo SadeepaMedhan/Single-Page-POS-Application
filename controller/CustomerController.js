@@ -1,40 +1,68 @@
+
+
 $("#btnSaveCustomer").click(function () {
-    saveCustomer();
-    clearAll();
-    loadAllCustomers();
+    let newCustomer = new CustomerDTO($("#txtCusID").val(),$("#txtCusName").val(),$("#txtCusAddress").val(),$("#txtCusTP").val());
+    if (!searchCustomer($("#txtCusID").val())) {
+        if (checkIfValid()) {
+            //customerDB.push(newCustomer);
+            //console.log(newCustomer.getCusId());
+            saveCustomer(newCustomer);
+            clearAll();
+            loadAllCustomers();
+        }
+    }else{
+        $("#errorPopup").modal('show');
+    }
 });
+
+$("#btnUpdateCus").click(function () {
+    if (updateCustomer($("#txtCusID").val(),$("#txtCusName").val(),$("#txtCusAddress").val(),$("#txtCusTP").val())){
+        loadAllCustomers();
+        clearAll();
+    }
+
+});
+
+function saveCustomer(customer) {
+    console.log(customer);
+    customerDB.push(customer);
+    $("#customerTable > tr").click(function () {
+        $("#txtCusID").val($(this).children(":eq(0)").text());
+        $("#txtCusName").val($(this).children(":eq(1)").text());
+        $("#txtCusAddress").val($(this).children(":eq(3)").text());
+        $("#txtCusTP").val($(this).children(":eq(4)").text());
+    });
+}
+
+function updateCustomer(id, name, address , tp){
+    for (let i = 0; i < customerDB.length; i++) {
+        if (customerDB[i].getCusId() === id) {
+            customerDB[i].setCusName(name);
+            customerDB[i].setCusAddress(address);
+            customerDB[i].setCusTP(tp);
+            return true;
+        }
+    }
+    return false;
+}
 
 function loadAllCustomers() {
     $("#customerTable").empty();
     for (var i of customerDB) {
-        let row = `<tr><td>${i.id}</td><td>${i.name}</td><td>${i.address}</td><td>${i.tp}</td></tr>`;
+        let row = `<tr><td>${i.getCusId()}</td><td>${i.getCusName()}</td><td>${i.getCusAddress()}</td><td>${i.getCusTp()}</td></tr>`;
         $("#customerTable").append(row);
     }
 }
-//let selectedCus;
-//save customer
-function saveCustomer() {
-    let customerID = $("#txtCusID").val();
-    let customerName = $("#txtCusName").val();
-    let customerAddress = $("#txtCusAddress").val();
-    let customerTP = $("#txtCusTP").val();
 
-    //create Object
-    var customerObject = {
-        id:customerID,
-        name:customerName,
-        address:customerAddress,
-        tp:customerTP
-    }
-    customerDB.push(customerObject);
-}
 
 function searchCustomer(id) {
     for (let i = 0; i < customerDB.length; i++) {
-        if (customerDB[i].id == id) {
+        if (customerDB[i].getCusId() === id) {
+            console.log(customerDB[i])
             return customerDB[i];
         }
     }
+    return false;
 }
 
 // search customer
@@ -165,6 +193,7 @@ function formValid() {
 }
 
 function checkIfValid() {
+
     var cusID = $("#txtCusID").val();
     if (regExCusID.test(cusID)) {
         $("#txtCusName").focus();
@@ -177,11 +206,13 @@ function checkIfValid() {
                 var cusTp = $("#txtCusTP").val();
                 var resp = regExCusTP.test(cusTp);
                 if (resp) {
-                    let res = confirm("Do you really need to add this Customer..?");
-                    if (res) {
-                        saveCustomer();
-                        clearAll();
-                    }
+                    //clearAll();
+                    return true;
+                    // let res = confirm("Do you really need to add this Customer..?");
+                    // if (res) {
+                    //     saveCustomer();
+                    //     clearAll();
+                    // }
                 } else {
                     $("#txtCusTP").focus();
                 }
