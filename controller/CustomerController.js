@@ -4,8 +4,6 @@ $("#btnSaveCustomer").click(function () {
     let newCustomer = new CustomerDTO($("#txtCusID").val(),$("#txtCusName").val(),$("#txtCusAddress").val(),$("#txtCusTP").val());
     if (!searchCustomer($("#txtCusID").val())) {
         if (checkIfValid()) {
-            //customerDB.push(newCustomer);
-            //console.log(newCustomer.getCusId());
             saveCustomer(newCustomer);
             clearAll();
             loadAllCustomers();
@@ -20,31 +18,7 @@ $("#btnUpdateCus").click(function () {
         loadAllCustomers();
         clearAll();
     }
-
 });
-
-function saveCustomer(customer) {
-    console.log(customer);
-    customerDB.push(customer);
-    $("#customerTable > tr").click(function () {
-        $("#txtCusID").val($(this).children(":eq(0)").text());
-        $("#txtCusName").val($(this).children(":eq(1)").text());
-        $("#txtCusAddress").val($(this).children(":eq(3)").text());
-        $("#txtCusTP").val($(this).children(":eq(4)").text());
-    });
-}
-
-function updateCustomer(id, name, address , tp){
-    for (let i = 0; i < customerDB.length; i++) {
-        if (customerDB[i].getCusId() === id) {
-            customerDB[i].setCusName(name);
-            customerDB[i].setCusAddress(address);
-            customerDB[i].setCusTP(tp);
-            return true;
-        }
-    }
-    return false;
-}
 
 function loadAllCustomers() {
     $("#customerTable").empty();
@@ -54,33 +28,24 @@ function loadAllCustomers() {
     }
 }
 
-
-function searchCustomer(id) {
-    for (let i = 0; i < customerDB.length; i++) {
-        if (customerDB[i].getCusId() === id) {
-            console.log(customerDB[i])
-            return customerDB[i];
-        }
-    }
-    return false;
-}
-
 // search customer
 $("#btnSearchCus").click(function () {
 
     var searchID = $("#txtSearchCusID").val();
     var response = searchCustomer(searchID);
 
-    if (response) {
-        $("#cusDetailPopup").modal('show');
-
-        $("#txtCusID").val(response.id);
-        $("#txtCusName").val(response.name);
-        $("#txtCusAddress").val(response.address);
-        $("#txtCusTP").val(response.tp);
-    }else{
+    if (!response) {
         clearAll();
         alert("No Such a Customer");
+    }else{
+        $("#cusDetailPopup").modal('show');
+        console.log(response.getCusId());
+
+        $("#txtCusID").val(response.getCusId());
+        $("#txtCusName").val(response.getCusName());
+        $("#txtCusAddress").val(response.getCusAddress());
+        $("#txtCusTP").val(response.getCusTp());
+
     }
 });
 
