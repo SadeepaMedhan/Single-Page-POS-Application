@@ -1,60 +1,60 @@
 
-
 $("#btnSaveItem").click(function () {
-    saveItem();
-    clearAllItem();
-    loadAllItems();
+    let newItem = new ItemDTO($("#txtItemCode").val(), $("#txtItemName").val(), $("#txtItemQty").val(), $("#txtItemPrice").val());
+    if (!searchItem($("#txtItemCode").val())) {
+        if (checkIfValidItem()) {
+            saveItem(newItem);
+            clearAllItem();
+            loadAllItems();
+        }
+    } else {
+        $("#errorPopupItem").modal('show');
+    }
+});
+
+$("#btnUpdateItem").click(function () {
+    if (updateItem($("#txtItemCode").val(), $("#txtItemName").val(), $("#txtItemQty").val(), $("#txtItemPrice").val())) {
+        loadAllItems();
+        clearAllItem();
+    }
 });
 
 function loadAllItems() {
     $("#itemTable").empty();
     for (var i of itemDB) {
-        let row = `<tr><td>${i.code}</td><td>${i.name}</td><td>${i.qty}</td><td>${i.price}</td></tr>`;
+        let row = `<tr><td>${i.getItemId()}</td><td>${i.getItemName()}</td><td>${i.getItemQty()}</td><td>${i.getItemPrice()}</td></tr>`;
         $("#itemTable").append(row);
     }
 }
 
-//save item
-function saveItem() {
-    let itemCode = $("#txtItemCode").val();
-    let itemName = $("#txtItemName").val();
-    let itemQty = $("#txtItemQty").val();
-    let itemPrice = $("#txtItemPrice").val();
-
-    //create Object
-    var itemObject = {
-        code: itemCode,
-        name: itemName,
-        qty: itemQty,
-        price: itemPrice
-    }
-    itemDB.push(itemObject);
-}
-
-function searchItem(code) {
-    for (let i = 0; i < itemDB.length; i++) {
-        if (itemDB[i].code == code) {
-            return itemDB[i];
-        }
-    }
-}
-
-// search item
 $("#btnSearchItem").click(function () {
 
-    var searchCode = $("#txtSearchItem").val();
-    var res = searchItem(searchCode);
+    var searchID = $("#txtSearchItem").val();
+    var res = searchItem(searchID);
 
-    if (res) {
-        $("#addNewItemModal").modal('show');
-
-        $("#txtItemCode").val(res.code);
-        $("#txtItemName").val(res.name);
-        $("#txtItemQty").val(res.qty);
-        $("#txtItemPrice").val(res.price);
-    } else {
+    if (!res) {
         clearAllItem();
-        alert("No Such an Item");
+        alert("No Such a Customer");
+    } else {
+        $("#addNewItemModal").modal('show');
+        console.log(res.getItemId());
+
+        $("#txtItemCode").val(res.getItemId());
+        $("#txtItemName").val(res.getItemName());
+        $("#txtItemQty").val(res.getItemQty());
+        $("#txtItemPrice").val(res.getItemPrice());
+
+    }
+});
+
+$("#btnItemDelete").click(function () {
+    if (!searchItem($("#txtItemCode").val())) {
+        let searchCode = $("#txtItemCode").val();
+        clearAllItem();
+        $("#txtItemCode").val(searchCode);
+        checkIfValidItem();
+    }else {
+        deleteItem($("#txtItemCode").val());
     }
 });
 
@@ -86,10 +86,10 @@ $("#txtItemCode").on('keyup', function (eventOb) {
     if (eventOb.key == "Control") {
         var typedItemCode = $("#txtItemCode").val();
         var srcItem = searchItem(typedItemCode);
-        // $("#txtCusID").val(srcCustomer.getCustomerID());
-        // $("#txtCusName").val(srcCustomer.getCustomerName());
-        // $("#txtCusAddress").val(srcCustomer.getCustomerAddress());
-        // $("#txtCusTP").val(srcCustomer.getCustomerSalary());
+        $("#txtItemCode").val(srcItem.getItemId());
+        $("#txtItemName").val(srcItem.getItemName());
+        $("#txtItemQty").val(srcItem.getItemQty());
+        $("#txtItemPrice").val(srcItem.getItemPrice());
     }
 });
 
@@ -181,8 +181,7 @@ function checkIfValidItem() {
                 if (resp) {
                     let res = confirm("Do you really need to add this Item..?");
                     if (res) {
-                        saveItem();
-                        clearAllItem();
+                       return true;
                     }
                 } else {
                     $("#txtItemPrice").focus();

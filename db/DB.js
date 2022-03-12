@@ -37,3 +37,61 @@ function searchCustomer(id) {
     return false;
 }
 
+function deleteCustomer(id) {
+    for (let i = 0; i < customerDB.length; i++) {
+        if (customerDB[i].getCusId() === id) {
+
+            customerDB.splice(i, 1);
+            $("#customerTable").empty();
+            loadAllCustomers();
+            clearAll();
+        }
+    }
+    return false;
+}
+
+
+function saveItem(item) {
+    //console.log(item);
+    itemDB.push(item);
+    $("#itemTable > tr").click(function () {
+        $("#txtItemCode").val($(this).children(":eq(0)").text());
+        $("#txtItemName").val($(this).children(":eq(1)").text());
+        $("#txtItemQty").val($(this).children(":eq(3)").text());
+        $("#txtItemPrice").val($(this).children(":eq(4)").text());
+    });
+}
+
+function updateItem(code, name, qty , price){
+    for (let i = 0; i < itemDB.length; i++) {
+        if (itemDB[i].getItemId() === code) {
+            itemDB[i].setItemName(name);
+            itemDB[i].setItemQty(qty);
+            itemDB[i].setItemPrice(price);
+            return true;
+        }
+    }
+    return false;
+}
+
+function searchItem(code) {
+    for (let i = 0; i < itemDB.length; i++) {
+        if (itemDB[i].getItemId() === code) {
+            return itemDB[i];
+        }
+    }
+    return false;
+}
+
+function deleteItem(code) {
+    for (let i = 0; i < itemDB.length; i++) {
+        if (itemDB[i].getItemId() === code) {
+
+            itemDB.splice(i, 1);
+            $("#itemTable").empty();
+            loadAllItems();
+            clearAllItem();
+        }
+    }
+    return false;
+}

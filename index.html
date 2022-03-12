@@ -360,6 +360,27 @@
         </table>
     </section>
 
+
+    <!--  Item  popup modal-->
+    <div class="modal fade" id="errorPopupItem" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabelItem">Warning..!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Existing Item Code
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnUpdateItem" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <section id="customerSection" class="container m-md-4">
@@ -412,7 +433,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="txtCusAddress" class="col-form-label">Customer Address:</label>
-                                    <textarea class="form-control" id="txtCusAddress"></textarea>
+                                    <input type="text" class="form-control" id="txtCusAddress">
                                     <p><small class="text-danger pl-1" id="lblcusaddress"></small></p>
                                 </div>
                                 <div class="mb-3">
@@ -423,7 +444,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnCustomerDelete">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnCusDelete">
                                 Delete
                             </button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClear">
@@ -482,7 +503,7 @@
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="db/DB.js"></script>
 <script src="model/customer.js"></script>
-<script src="model/Item.js"></script>
+<script src="model/item.js"></script>
 <script src="model/Order.js"></script>
 <script src="controller/IndexController.js"></script>
 <script src="controller/CustomerController.js"></script>
