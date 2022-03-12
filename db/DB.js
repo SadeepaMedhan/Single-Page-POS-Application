@@ -5,7 +5,9 @@ var itemDB = new Array();
 var orderDB = new Array();
 var cartDB = new Array();
 
-
+function addCart(cart){
+    cartDB.push(cart);
+}
 
 function saveCustomer(customer) {
     customerDB.push(customer);

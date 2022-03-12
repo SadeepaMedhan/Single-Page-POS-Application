@@ -16,9 +16,12 @@ $("#btnAddToCart").click(function () {
     var orderQty = $("#txtOrderQty").val();
 
     if (regExItemQty.test(orderQty)) {
+
         var itemTotal = itemPrice*orderQty;
-        let row = `<tr><td>${itemCode}</td><td>${itemName}</td><td>${itemPrice}</td><td>${orderQty}</td><td>${itemTotal}</td></tr>`;
-        $("#tableCart").append(row);
+        let newItemToCart = new Cart(itemCode,orderQty);
+        addCart(newItemToCart);
+        loadCartAll();
+
         $("#txtOrderQty").css('border', '2px solid #ced4da');
         clearOrderItem();
     } else {
@@ -26,6 +29,19 @@ $("#btnAddToCart").click(function () {
     }
 });
 
+function loadCartAll() {
+    $("#tableCart").empty();
+    for (var i of cartDB) {
+        let item = searchItem(i.getCItemCode());
+        let price = item.getItemPrice();
+        let qtyForSale = i.getQtyForSale();
+        let total = price*qtyForSale;
+        let row = `<tr><td>${i.getCItemCode()}</td><td>${item.getItemName()}</td><td>${item.getItemPrice()}</td><td>${i.getQtyForSale()}</td><td>${total}</td></tr>`;
+        $("#tableCart").append(row);
+    }
+}
+
 function clearOrderItem(){
     $('#txtOrderItemCode,#txtOrderItemName,#txtOrderItemPrice,#txtOrderQtyOnHand,#txtOrderQty').val("");
+    loadAllItemID();
 }
